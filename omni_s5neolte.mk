@@ -11,8 +11,8 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
-    $(LOCAL_PATH)/init.recovery.samsungexynos7580.rc:root/init.recovery.samsungexynos7580.rc \
-    $(LOCAL_PATH)/twrp.fstab:recovery/root/etc/recovery.fstab
+    $(LOCAL_PATH)/recovery/init.recovery.samsungexynos7580.rc:root/init.recovery.samsungexynos7580.rc \
+    $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/recovery.fstab
     
 
 $(call inherit-product, build/target/product/full.mk)

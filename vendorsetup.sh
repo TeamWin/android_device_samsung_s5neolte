@@ -20,5 +20,5 @@
 # In particular, you can add lunch options with the add_lunch_combo
 # function: add_lunch_combo generic-eng
 
-add_lunch_combo cm_j7elte-userdebug
-add_lunch_combo cm_j7elte-eng
+add_lunch_combo omni_s5neolte-userdebug
+add_lunch_combo omni_s5neolte-eng
