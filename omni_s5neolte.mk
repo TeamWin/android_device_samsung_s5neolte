@@ -1,23 +1,18 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+# Release name
+PRODUCT_RELEASE_NAME := s5neolte
 
-DEVICE_PACKAGE_OVERLAYS += device/samsung/s5neolte/overlay
+# Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
-LOCAL_PATH := device/samsung/s5neolte
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(LOCAL_PATH)/kernAl
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/omni/config/common.mk)
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel \
-    $(LOCAL_PATH)/recovery/init.recovery.samsungexynos7580.rc:root/init.recovery.samsungexynos7580.rc \
-    $(LOCAL_PATH)/recovery/twrp.fstab:recovery/root/etc/recovery.fstab
-    
+PRODUCT_PACKAGES += \
+	charger_res_images \
+	charger
 
-$(call inherit-product, build/target/product/full.mk)
-
-PRODUCT_NAME := omni_s5neolte
+## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := s5neolte
-PRODUCT_BRAND := Samsung
-PRODUCT_MODEL := s5neolte
+PRODUCT_NAME := omni_s5neolte
+PRODUCT_BRAND := samsung
+PRODUCT_MANUFACTURER := samsung

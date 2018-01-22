@@ -1,86 +1,67 @@
-USE_CAMERA_STUB := true
-
-# inherit from the proprietary version
--include vendor/samsung/s5neolte/BoardConfigVendor.mk
-
-TARGET_NO_BOOTLOADER := true
-TARGET_BOOTLOADER_BOARD_NAME := s5neolte
-
 # Platform
-
-TARGET_BOARD_PLATFORM := exynos7580
-TARGET_BOARD_PLATFORM_GPU := mali-t760mp8
-
-# Flags
-TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
-COMMON_GLOBAL_CFLAGS += -DREFRESH_RATE=60  
+BOARD_VENDOR := samsung
+TARGET_BOARD_PLATFORM := exynos5
+TARGET_SOC := exynos7580
+TARGET_BOOTLOADER_BOARD_NAME := universal7580
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
 
 # Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT := cortex-a53
 TARGET_CPU_SMP := true
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := generic
+TARGET_2ND_CPU_VARIANT := cortex-a53
 
-BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
+TARGET_INIT_VENDOR_LIB := libinit_s5neolte
+
+# Kernel
+#TARGET_KERNEL_ARCH := arm64
+#TARGET_KERNEL_CONFIG := lineageos_s5neolte_defconfig
+#TARGET_KERNEL_HEADER_ARCH := arm64
+#TARGET_KERNEL_SOURCE := kernel/samsung/exynos7580-common
+#BOARD_KERNEL_IMAGE_NAME := Image
+TARGET_PREBUILT_KERNEL := device/samsung/s5neolte/prebuilt/kernel
+
+# Image
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --board SYSMAGIC000KU --dt device/samsung/s5neolte/dtb
-BOARD_KERNEL_SEPARATED_DT := true
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --dt device/samsung/s5neolte/prebuilt/dt.img --board SYSMAGIC000KU
 
+# File systems
+BOARD_HAS_LARGE_FILESYSTEM := true
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+
+# Partitions
+BOARD_HAS_NO_MISC_PARTITION:= false
+TARGET_USERIMAGES_USE_F2FS := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 39845888
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3145728000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12096372736
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-TARGET_RECOVERY_INITRC := device/samsung/s5neolte/recovery/init.rc
-
-# Kernel Configs
-#TARGET_KERNEL_SOURCE := kernel/samsung/s5neolte
-#TARGET_KERNEL_CONFIG := exynos7420-s5neolte_tmo_defconfig
-#BOARD_KERNEL_IMAGE_NAME := Image
-#TARGET_KERNEL_CUSTOM_TOOLCHAIN := true
-#ARM_EABI_TOOLCHAIN := /builds/omni-5.1/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
-#KERNEL_TOOLCHAIN_PREFIX := 
-TARGET_KERNEL_ARCH := arm64
-TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_USES_UNCOMPRESSED_KERNEL := true
-#TARGET_KERNEL_SELINUX_CONFIG := 
-#TARGET_KERNEL_VARIANT_CONFIG :=
-#VARIANT_CONFIG :=
-#TIMA_DEFCONFIG :=
-TARGET_PREBUILT_KERNEL := device/samsung/s5neolte/kernAl
-
-#BOARD_NEEDS_LZMA_MINIGZIP := true
-
-#TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
-
-# Recovery:Start
-
-# Use this flag if the board has a ext4 partition larger than 2gb
-BOARD_HAS_LARGE_FILESYSTEM := true
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-
-BOARD_SUPPRESS_SECURE_ERASE := true
-
 # TWRP specific build flags
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
-TW_BRIGHTNESS_PATH := "/sys/devices/14800000.dsim/backlight/panel/brightness"
+TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
+TW_MAX_BRIGHTNESS := 36600
+TW_DEFAULT_BRIGHTNESS := 16200
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_INCLUDE_CRYPTO := true
 TW_EXCLUDE_SUPERSU := true
-TARGET_RECOVERY_PIXEL_FORMAT := "ABGR_8888"
+TW_USE_NEW_MINADBD := true
+
