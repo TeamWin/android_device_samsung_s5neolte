@@ -1,3 +1,7 @@
 ifneq ($(filter s5neolte,$(TARGET_DEVICE)),)
-    include $(all-subdir-makefiles)
+
+LOCAL_PATH := $(call my-dir)
+
+include $(call all-makefiles-under,$(LOCAL_PATH))
+
 endif
